@@ -2,23 +2,35 @@ import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 const BRAND = {
-  bg: "#050816",
   primary: "#35BEAD",
   accent: "#0B4C9E",
-  text: "#E5E7EB",
+  bg: "#020617",
 };
 
 export default function App() {
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY || 0;
+      document.documentElement.style.setProperty("--scroll-y", String(y));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <div className="app-root">
+      <ParallaxBackground />
+
       <header className="app-header">
         <div className="logo-wrap">
           <div className="logo-dot">LB</div>
           <span className="logo-text">BentoStudio</span>
         </div>
         <nav className="nav-links">
-          <a href="#services">Serviços</a>
-          <a href="#portfolio">Portfólio</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#processo">Processo</a>
+          <a href="#showreel">3D & Interação</a>
           <a href="#contacto" className="nav-cta">
             Fala comigo
           </a>
@@ -27,30 +39,34 @@ export default function App() {
 
       <main className="main">
         {/* HERO */}
-        <section className="hero">
+        <section className="hero" id="topo">
           <div className="hero-text">
-            <p className="eyebrow">Web • 2D • 3D • Interação</p>
+            <p className="eyebrow">Web • UX • 2D • 3D • Interação</p>
             <h1>
               Eu sou o <span className="highlight">Luís Bento</span>,
               <br />
-              crio experiências digitais modernas
+              desenvolvo experiências digitais<span className="highlight-block">
+                modernas, rápidas e com 3D
+              </span>
             </h1>
             <p className="hero-sub">
-              Desenvolvimento de websites, landing pages e experiências 3D
-              interativas para negócios e pessoas que querem ter presença
-              online com aspecto profissional.
+              Ajudo pessoas e negócios a terem uma presença online com aspecto
+              profissional: websites, landing pages e interações 3D no browser
+              para mostrar produtos, serviços e ideias de forma única.
             </p>
             <div className="hero-buttons">
               <a href="#contacto" className="btn-primary">
-                Quero um site
+                Quero um site para o meu negócio
               </a>
-              <a href="#3d" className="btn-ghost">
-                Ver demo 3D
+              <a href="#showreel" className="btn-ghost">
+                Ver demo 3D e animações
               </a>
             </div>
             <p className="hero-small">
-              Websites responsivos • Interação 3D no browser • Foco em UX
+              Websites responsivos • Lojas online • Landing pages • Experiências
+              3D interativas
             </p>
+            <ScrollHint />
           </div>
 
           <div className="hero-3d" id="3d">
@@ -58,54 +74,149 @@ export default function App() {
           </div>
         </section>
 
+        {/* RIBBON */}
+        <section className="ribbon">
+          <div className="ribbon-track">
+            <span>Websites modernos</span>
+            <span>Landing pages que convertem</span>
+            <span>3D interativo</span>
+            <span>UI/UX pensada para pessoas</span>
+            <span>Identidade digital</span>
+          </div>
+        </section>
+
         {/* SERVIÇOS */}
-        <section id="services" className="section">
-          <h2 className="section-title">O que eu faço</h2>
+        <section id="servicos" className="section">
+          <h2 className="section-title">O que posso criar para ti</h2>
           <p className="section-sub">
-            Soluções à medida para pequenos negócios, marcas pessoais, lojas e
-            projetos criativos.
+            Podes estar a começar um projecto, a renovar a imagem da tua
+            empresa ou a precisar de uma página simples para vender um serviço.
+            Construo soluções à medida.
           </p>
           <div className="cards">
             <ServiceCard
-              title="Websites & Landing Pages"
-              text="Sites rápidos, modernos e pensados para converter visitas em contactos ou vendas."
+              title="Website completo"
+              badge="Ideal para negócios e marcas"
+              text="Estrutura de páginas, navegação clara, contacto optimizado e apresentação profissional dos teus serviços."
+              items={[
+                "Design responsivo",
+                "Secção Sobre, Serviços, Contacto",
+                "Integração com redes sociais",
+              ]}
             />
             <ServiceCard
-              title="Interação & 3D no browser"
-              text="Objetos 3D manipuláveis, animações e experiências visuais que destacam a tua marca."
+              title="Landing page de alto impacto"
+              badge="Campanhas, cursos, serviços"
+              text="Uma página focada em converter visitantes em contactos ou vendas, com copy directo e blocos bem estruturados."
+              items={[
+                "Hero persuasivo",
+                "Blocos de benefícios",
+                "Secção de prova social / testemunhos",
+              ]}
             />
             <ServiceCard
-              title="Identidade digital"
-              text="Estrutura, cores, hierarquia visual e microinterações que dão cara ao teu negócio."
+              title="Experiência 3D no browser"
+              badge="Produtos, branding, portfólios"
+              text="Objetos 3D manipuláveis, animações suaves e microinteracções que mostram o teu produto/ideia de forma memorável."
+              items={[
+                "Three.js / WebGL",
+                "Cenas 3D leves e responsivas",
+                "Interação com rato / toque",
+              ]}
             />
           </div>
         </section>
 
-        {/* PORTFÓLIO */}
-        <section id="portfolio" className="section">
-          <h2 className="section-title">Portfólio (exemplos)</h2>
+        {/* PROCESSO */}
+        <section id="processo" className="section processo">
+          <h2 className="section-title">Como trabalhamos juntos</h2>
           <p className="section-sub">
-            Aqui podes colocar screenshots de projetos: websites para negócios
-            locais, lojas online, páginas pessoais, etc.
+            Um processo simples, pensado para não te roubar tempo e chegar a um
+            resultado que realmente te representa.
           </p>
-          <div className="portfolio-grid">
-            <PortfolioPlaceholder title="Landing page para explicadora" />
-            <PortfolioPlaceholder title="Site para clínica / consultório" />
-            <PortfolioPlaceholder title="Página pessoal de artista / criador" />
+          <ol className="timeline">
+            <TimelineStep
+              step="1"
+              title="Conversa inicial"
+              text="Falamos por chamada ou mensagem sobre a tua ideia, objectivo e prazos. Ajudo-te a clarificar o que faz mais sentido fazer primeiro."
+            />
+            <TimelineStep
+              step="2"
+              title="Proposta & layout"
+              text="Envio uma proposta simples, com o que será feito. Crio um layout base (wireframe ou mockup) para avaliares o visual."
+            />
+            <TimelineStep
+              step="3"
+              title="Desenvolvimento"
+              text="Construção do site/app, animações e parte 3D. Envio versões intermédias para irmos ajustando texto, cores e secções."
+            />
+            <TimelineStep
+              step="4"
+              title="Lançamento & suporte"
+              text="Publicação em produção (Netlify / alojamento à tua escolha) e pequenos ajustes após feedback inicial."
+            />
+          </ol>
+        </section>
+
+        {/* 3D SHOWREEL / EXPLICAÇÃO */}
+        <section id="showreel" className="section showreel">
+          <div className="showreel-text">
+            <h2 className="section-title">3D & Interação no browser</h2>
+            <p className="section-sub">
+              A tua página não precisa de ser apenas texto e imagens estáticas.
+              Posso integrar objetos 3D que o utilizador pode rodar, zoom e
+              explorar — directamente no navegador.
+            </p>
+            <ul className="bullet-list">
+              <li>Mostrar um produto em 360º.</li>
+              <li>Explicar um conceito com elementos 3D simples.</li>
+              <li>
+                Dar um toque “wow” na hero section com animações suaves e luzes.
+              </li>
+            </ul>
+            <p className="section-sub">
+              Tudo isto com atenção à performance, para que o site continue
+              rápido em desktop e mobile.
+            </p>
+          </div>
+          <div className="showreel-demo">
+            <ThreeHero compact />
+            <p className="showreel-caption">
+              Exemplo de cena 3D leve: cubo metálico com aro em wireframe,
+              reagindo ao movimento do rato e com animação contínua.
+            </p>
+          </div>
+        </section>
+
+        {/* TECNOLOGIAS */}
+        <section className="section stack">
+          <h2 className="section-title">Tecnologias & stack</h2>
+          <p className="section-sub">
+            Trabalho com tecnologias modernas, focadas em velocidade, boas
+            práticas e facilidade em fazer manutenção no futuro.
+          </p>
+          <div className="tag-grid">
+            <span>React</span>
+            <span>Vite</span>
+            <span>Three.js</span>
+            <span>HTML5/CSS3</span>
+            <span>JavaScript moderno</span>
+            <span>Netlify / GitHub</span>
+            <span>UI/UX</span>
           </div>
         </section>
 
         {/* CONTACTO */}
         <section id="contacto" className="section contact">
           <div>
-            <h2 className="section-title">Vamos construir o teu projeto?</h2>
+            <h2 className="section-title">Vamos falar sobre o teu projecto?</h2>
             <p className="section-sub">
-              Envia-me uma mensagem com uma ideia simples do que precisas.
-              Respondo com opções e sugestões.
+              Diz-me em poucas linhas o que tens em mente. Respondo com ideias
+              e opções de abordagem (sem compromisso).
             </p>
             <ul className="contact-list">
               <li>
-                Email: <span>luis@bentostudio.dev</span>
+                Email: <span>luis@bentostudio.dev</span> {/* ajusta para o teu */}
               </li>
               <li>
                 Instagram: <span>@bentostudio</span>
@@ -121,7 +232,7 @@ export default function App() {
             onSubmit={(e) => {
               e.preventDefault();
               alert(
-                "Obrigado! Depois podemos ligar isto a Netlify Forms ou outro backend."
+                "Mensagem simulada ✉️ — aqui depois podemos ligar a Netlify Forms ou outro backend."
               );
             }}
           >
@@ -136,12 +247,12 @@ export default function App() {
             </div>
             <input
               name="tipo"
-              placeholder="Tipo de projeto (site, landing, 3D, etc.)"
+              placeholder="Tipo de projecto (site, landing, 3D, etc.)"
             />
             <textarea
               name="mensagem"
               rows={4}
-              placeholder="Fala-me do teu negócio ou ideia em 2/3 frases."
+              placeholder="Fala-me rapidamente do teu negócio e do que precisas."
             />
             <button type="submit" className="btn-primary full">
               Enviar mensagem
@@ -159,27 +270,57 @@ export default function App() {
 
 /* ---------- COMPONENTES SIMPLES ---------- */
 
-function ServiceCard({ title, text }) {
+function ParallaxBackground() {
+  return (
+    <>
+      <div className="parallax-layer layer-1" />
+      <div className="parallax-layer layer-2" />
+      <div className="parallax-layer layer-3" />
+    </>
+  );
+}
+
+function ScrollHint() {
+  return (
+    <div className="scroll-hint">
+      <span className="scroll-dot" />
+      <span className="scroll-text">Desce para ver mais</span>
+    </div>
+  );
+}
+
+function ServiceCard({ title, text, badge, items }) {
   return (
     <article className="card">
+      {badge && <p className="card-badge">{badge}</p>}
       <h3>{title}</h3>
-      <p>{text}</p>
+      <p className="card-text">{text}</p>
+      {items && (
+        <ul className="card-list">
+          {items.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
+      )}
     </article>
   );
 }
 
-function PortfolioPlaceholder({ title }) {
+function TimelineStep({ step, title, text }) {
   return (
-    <div className="portfolio-card">
-      <div className="portfolio-thumb" />
-      <p>{title}</p>
-    </div>
+    <li className="timeline-step">
+      <div className="timeline-badge">{step}</div>
+      <div className="timeline-content">
+        <h3>{title}</h3>
+        <p>{text}</p>
+      </div>
+    </li>
   );
 }
 
 /* ---------- COMPONENTE 3D ---------- */
 
-function ThreeHero() {
+function ThreeHero({ compact }) {
   const mountRef = useRef(null);
 
   useEffect(() => {
@@ -190,7 +331,7 @@ function ThreeHero() {
     const height = mount.clientHeight;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color("#020617");
+    scene.background = new THREE.Color(BRAND.bg);
 
     const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 100);
     camera.position.set(0, 0, 6);
@@ -205,6 +346,10 @@ function ThreeHero() {
     light.position.set(3, 5, 4);
     scene.add(light);
 
+    const backLight = new THREE.PointLight(0x38bdf8, 0.8, 10);
+    backLight.position.set(-3, -2, -2);
+    scene.add(backLight);
+
     const ambient = new THREE.AmbientLight(0xffffff, 0.25);
     scene.add(ambient);
 
@@ -214,23 +359,39 @@ function ThreeHero() {
     const cubeGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
     const cubeMat = new THREE.MeshStandardMaterial({
       color: BRAND.primary,
-      metalness: 0.5,
-      roughness: 0.2,
+      metalness: 0.65,
+      roughness: 0.25,
     });
     const cube = new THREE.Mesh(cubeGeo, cubeMat);
 
+    const torusGeo = new THREE.TorusGeometry(2.2, 0.06, 24, 120);
     const wireMat = new THREE.MeshBasicMaterial({
       color: BRAND.accent,
       wireframe: true,
     });
-    const torus = new THREE.Mesh(
-      new THREE.TorusGeometry(2.2, 0.05, 16, 100),
-      wireMat
-    );
+    const torus = new THREE.Mesh(torusGeo, wireMat);
 
     group.add(cube);
     group.add(torus);
     scene.add(group);
+
+    // Partículas simples
+    const particlesGeo = new THREE.BufferGeometry();
+    const count = 80;
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 10;
+    }
+    particlesGeo.setAttribute(
+      "position",
+      new THREE.BufferAttribute(positions, 3)
+    );
+    const particlesMat = new THREE.PointsMaterial({
+      color: 0x38bdf8,
+      size: 0.04,
+    });
+    const particles = new THREE.Points(particlesGeo, particlesMat);
+    scene.add(particles);
 
     // Cursor → rotação leve
     const mouse = { x: 0, y: 0 };
@@ -253,6 +414,8 @@ function ThreeHero() {
 
       group.position.y = Math.sin(t * 1.2) * 0.15;
 
+      particles.rotation.y = t * 0.06;
+
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(animate);
     };
@@ -260,7 +423,7 @@ function ThreeHero() {
 
     function onResize() {
       const w = mount.clientWidth;
-      const h = mount.clientHeight;
+      const h = mount.clientHeight || 1;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
@@ -272,14 +435,18 @@ function ThreeHero() {
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", onResize);
       mount.removeEventListener("pointermove", onMouseMove);
-      mount.removeChild(renderer.domElement);
+      if (renderer.domElement.parentNode === mount) {
+        mount.removeChild(renderer.domElement);
+      }
       renderer.dispose();
       cubeGeo.dispose();
       cubeMat.dispose();
-      torus.geometry.dispose();
+      torusGeo.dispose();
       wireMat.dispose();
+      particlesGeo.dispose();
+      particlesMat.dispose();
     };
-  }, []);
+  }, [compact]);
 
-  return <div ref={mountRef} className="three-container" />;
+  return <div ref={mountRef} className={compact ? "three-container compact" : "three-container"} />;
 }
