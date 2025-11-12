@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 const BRAND = {
-  primary: "#35BEAD",
-  accent: "#0B4C9E",
-  bg: "#020617",
+  primary: "#0B4C9E",
+  accent: "#35BEAD",
+  bg: "#020617", // fundo da cena 3D (dentro do card)
 };
 
 export default function App() {
@@ -45,26 +45,26 @@ export default function App() {
             <h1>
               Eu sou o <span className="highlight">Luís Bento</span>,
               <br />
-              desenvolvo experiências digitais<span className="highlight-block">
-                modernas, rápidas e com 3D
+              crio websites e experiências 3D{" "}
+              <span className="highlight-block">
+                claros, modernos e focados em resultados.
               </span>
             </h1>
             <p className="hero-sub">
               Ajudo pessoas e negócios a terem uma presença online com aspecto
-              profissional: websites, landing pages e interações 3D no browser
-              para mostrar produtos, serviços e ideias de forma única.
+              profissional: sites limpos, animações suaves e interação 3D no
+              browser para explicar melhor produtos, serviços e ideias.
             </p>
             <div className="hero-buttons">
               <a href="#contacto" className="btn-primary">
                 Quero um site para o meu negócio
               </a>
               <a href="#showreel" className="btn-ghost">
-                Ver demo 3D e animações
+                Ver demo 3D e stack
               </a>
             </div>
             <p className="hero-small">
-              Websites responsivos • Lojas online • Landing pages • Experiências
-              3D interativas
+              Websites responsivos • Landing pages • 3D interativo • UI/UX
             </p>
             <ScrollHint />
           </div>
@@ -74,14 +74,16 @@ export default function App() {
           </div>
         </section>
 
-        {/* RIBBON */}
+        {/* RIBBON / TECHS */}
         <section className="ribbon">
           <div className="ribbon-track">
-            <span>Websites modernos</span>
-            <span>Landing pages que convertem</span>
-            <span>3D interativo</span>
-            <span>UI/UX pensada para pessoas</span>
-            <span>Identidade digital</span>
+            <span>React</span>
+            <span>Vite</span>
+            <span>Three.js</span>
+            <span>HTML5 &amp; CSS3</span>
+            <span>JavaScript moderno</span>
+            <span>Netlify &amp; GitHub</span>
+            <span>UI &amp; UX</span>
           </div>
         </section>
 
@@ -89,39 +91,38 @@ export default function App() {
         <section id="servicos" className="section">
           <h2 className="section-title">O que posso criar para ti</h2>
           <p className="section-sub">
-            Podes estar a começar um projecto, a renovar a imagem da tua
-            empresa ou a precisar de uma página simples para vender um serviço.
-            Construo soluções à medida.
+            Desde um site simples para mostrar o teu negócio até experiências 3D
+            interativas no browser. Tudo com um visual limpo e moderno.
           </p>
           <div className="cards">
             <ServiceCard
               title="Website completo"
-              badge="Ideal para negócios e marcas"
-              text="Estrutura de páginas, navegação clara, contacto optimizado e apresentação profissional dos teus serviços."
+              badge="Negócios, clínicas, marcas pessoais"
+              text="Estrutura de páginas pensada, copy organizado, navegação intuitiva e secção de contacto optimizada."
               items={[
-                "Design responsivo",
-                "Secção Sobre, Serviços, Contacto",
+                "Layout responsivo (desktop e mobile)",
+                "Secções Sobre, Serviços, Portfólio, Contacto",
                 "Integração com redes sociais",
               ]}
             />
             <ServiceCard
-              title="Landing page de alto impacto"
-              badge="Campanhas, cursos, serviços"
-              text="Uma página focada em converter visitantes em contactos ou vendas, com copy directo e blocos bem estruturados."
+              title="Landing page focada em conversão"
+              badge="Cursos, serviços, eventos"
+              text="Uma única página clara, directa e optimizada para transformar visitas em mensagens, inscrições ou vendas."
               items={[
-                "Hero persuasivo",
-                "Blocos de benefícios",
-                "Secção de prova social / testemunhos",
+                "Hero forte com chamada à acção",
+                "Benefícios, prova social, FAQ",
+                "Formulário simples e directo",
               ]}
             />
             <ServiceCard
               title="Experiência 3D no browser"
-              badge="Produtos, branding, portfólios"
-              text="Objetos 3D manipuláveis, animações suaves e microinteracções que mostram o teu produto/ideia de forma memorável."
+              badge="Produtos, storytelling, portfólios"
+              text="Objetos 3D manipuláveis, animação, iluminação e microinteracções criadas em Three.js."
               items={[
-                "Three.js / WebGL",
                 "Cenas 3D leves e responsivas",
-                "Interação com rato / toque",
+                "Interação com rato e toque",
+                "Animações contínuas e suaves",
               ]}
             />
           </div>
@@ -129,90 +130,93 @@ export default function App() {
 
         {/* PROCESSO */}
         <section id="processo" className="section processo">
-          <h2 className="section-title">Como trabalhamos juntos</h2>
+          <h2 className="section-title">Processo simples e transparente</h2>
           <p className="section-sub">
-            Um processo simples, pensado para não te roubar tempo e chegar a um
-            resultado que realmente te representa.
+            Não precisas de saber nada de tecnologia: explico as opções, guiando
+            o processo do primeiro rascunho ao site online.
           </p>
           <ol className="timeline">
             <TimelineStep
               step="1"
               title="Conversa inicial"
-              text="Falamos por chamada ou mensagem sobre a tua ideia, objectivo e prazos. Ajudo-te a clarificar o que faz mais sentido fazer primeiro."
+              text="Entendo quem és, o que fazes e qual é o principal objetivo do site (explicar, vender, marcar consultas, etc.)."
             />
             <TimelineStep
               step="2"
-              title="Proposta & layout"
-              text="Envio uma proposta simples, com o que será feito. Crio um layout base (wireframe ou mockup) para avaliares o visual."
+              title="Wireframe & visual"
+              text="Desenho a estrutura e o visual base: secções, hierarquia da informação, estilo gráfico e pontos de foco."
             />
             <TimelineStep
               step="3"
-              title="Desenvolvimento"
-              text="Construção do site/app, animações e parte 3D. Envio versões intermédias para irmos ajustando texto, cores e secções."
+              title="Desenvolvimento & 3D"
+              text="Transformo o layout em website real, com animações, interações e (se fizer sentido) um elemento 3D."
             />
             <TimelineStep
               step="4"
-              title="Lançamento & suporte"
-              text="Publicação em produção (Netlify / alojamento à tua escolha) e pequenos ajustes após feedback inicial."
+              title="Lançamento & ajustes"
+              text="Coloco online (por ex. Netlify), configuramos domínio e fazemos ajustes finos depois dos primeiros feedbacks."
             />
           </ol>
         </section>
 
-        {/* 3D SHOWREEL / EXPLICAÇÃO */}
+        {/* 3D & STACK DEMO */}
         <section id="showreel" className="section showreel">
           <div className="showreel-text">
-            <h2 className="section-title">3D & Interação no browser</h2>
+            <h2 className="section-title">3D & tecnologias modernas</h2>
             <p className="section-sub">
-              A tua página não precisa de ser apenas texto e imagens estáticas.
-              Posso integrar objetos 3D que o utilizador pode rodar, zoom e
-              explorar — directamente no navegador.
+              Além do design visual, gosto de explorar aquilo que o browser
+              consegue fazer hoje: 3D com Three.js, animações suaves e scroll
+              com efeito parallax.
             </p>
             <ul className="bullet-list">
-              <li>Mostrar um produto em 360º.</li>
-              <li>Explicar um conceito com elementos 3D simples.</li>
+              <li>React + Vite para experiência rápida na navegação.</li>
+              <li>Three.js para criar cenas 3D leves e responsivas.</li>
               <li>
-                Dar um toque “wow” na hero section com animações suaves e luzes.
+                Animações em CSS e JavaScript para um toque de movimento sem
+                exageros.
               </li>
             </ul>
             <p className="section-sub">
-              Tudo isto com atenção à performance, para que o site continue
-              rápido em desktop e mobile.
+              O objectivo é sempre o mesmo: destacar o teu projeto, sem perder
+              clareza nem simplicidade para quem visita.
             </p>
           </div>
           <div className="showreel-demo">
             <ThreeHero compact />
             <p className="showreel-caption">
-              Exemplo de cena 3D leve: cubo metálico com aro em wireframe,
-              reagindo ao movimento do rato e com animação contínua.
+              Exemplo de cena 3D: cubo metálico com aro em wireframe, reagindo
+              ao movimento do rato e animado em loop.
             </p>
           </div>
         </section>
 
-        {/* TECNOLOGIAS */}
+        {/* STACK VISUAL */}
         <section className="section stack">
-          <h2 className="section-title">Tecnologias & stack</h2>
+          <h2 className="section-title">Stack & ferramentas</h2>
           <p className="section-sub">
-            Trabalho com tecnologias modernas, focadas em velocidade, boas
-            práticas e facilidade em fazer manutenção no futuro.
+            Estas são algumas das tecnologias que uso nos projectos — mas
+            escolho sempre o que faz sentido para cada caso.
           </p>
           <div className="tag-grid">
             <span>React</span>
             <span>Vite</span>
             <span>Three.js</span>
-            <span>HTML5/CSS3</span>
-            <span>JavaScript moderno</span>
-            <span>Netlify / GitHub</span>
-            <span>UI/UX</span>
+            <span>HTML5</span>
+            <span>CSS moderno (flex, grid)</span>
+            <span>JavaScript ES6+</span>
+            <span>Netlify</span>
+            <span>GitHub</span>
+            <span>UI & UX</span>
           </div>
         </section>
 
         {/* CONTACTO */}
         <section id="contacto" className="section contact">
           <div>
-            <h2 className="section-title">Vamos falar sobre o teu projecto?</h2>
+            <h2 className="section-title">Vamos falar sobre o teu projeto?</h2>
             <p className="section-sub">
-              Diz-me em poucas linhas o que tens em mente. Respondo com ideias
-              e opções de abordagem (sem compromisso).
+              Partilha rapidamente o tipo de site que tens em mente. Respondo
+              com ideias, sugestões e caminhos possíveis.
             </p>
             <ul className="contact-list">
               <li>
@@ -232,7 +236,7 @@ export default function App() {
             onSubmit={(e) => {
               e.preventDefault();
               alert(
-                "Mensagem simulada ✉️ — aqui depois podemos ligar a Netlify Forms ou outro backend."
+                "Mensagem simulada ✉️ — mais tarde podemos ligar isto a Netlify Forms ou outro backend."
               );
             }}
           >
@@ -247,12 +251,12 @@ export default function App() {
             </div>
             <input
               name="tipo"
-              placeholder="Tipo de projecto (site, landing, 3D, etc.)"
+              placeholder="Tipo de projeto (site, landing, 3D, etc.)"
             />
             <textarea
               name="mensagem"
               rows={4}
-              placeholder="Fala-me rapidamente do teu negócio e do que precisas."
+              placeholder="Fala-me do teu negócio e do que precisas."
             />
             <button type="submit" className="btn-primary full">
               Enviar mensagem
@@ -328,7 +332,7 @@ function ThreeHero({ compact }) {
     if (!mount) return;
 
     const width = mount.clientWidth;
-    const height = mount.clientHeight;
+    const height = mount.clientHeight || 1;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(BRAND.bg);
@@ -358,7 +362,7 @@ function ThreeHero({ compact }) {
 
     const cubeGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
     const cubeMat = new THREE.MeshStandardMaterial({
-      color: BRAND.primary,
+      color: BRAND.accent,
       metalness: 0.65,
       roughness: 0.25,
     });
@@ -366,7 +370,7 @@ function ThreeHero({ compact }) {
 
     const torusGeo = new THREE.TorusGeometry(2.2, 0.06, 24, 120);
     const wireMat = new THREE.MeshBasicMaterial({
-      color: BRAND.accent,
+      color: BRAND.primary,
       wireframe: true,
     });
     const torus = new THREE.Mesh(torusGeo, wireMat);
@@ -448,5 +452,10 @@ function ThreeHero({ compact }) {
     };
   }, [compact]);
 
-  return <div ref={mountRef} className={compact ? "three-container compact" : "three-container"} />;
+  return (
+    <div
+      ref={mountRef}
+      className={compact ? "three-container compact" : "three-container"}
+    />
+  );
 }
