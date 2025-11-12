@@ -60,7 +60,7 @@ export default function App() {
                 Quero um site para o meu negócio
               </a>
               <a href="#showreel" className="btn-ghost">
-                Ver demo 3D e stack
+                Ver demo 3D & stack
               </a>
             </div>
             <p className="hero-small">
@@ -80,6 +80,7 @@ export default function App() {
             <span>React</span>
             <span>Vite</span>
             <span>Three.js</span>
+            <span>WebGL</span>
             <span>HTML5 &amp; CSS3</span>
             <span>JavaScript moderno</span>
             <span>Netlify &amp; GitHub</span>
@@ -162,30 +163,29 @@ export default function App() {
         {/* 3D & STACK DEMO */}
         <section id="showreel" className="section showreel">
           <div className="showreel-text">
-            <h2 className="section-title">3D & tecnologias modernas</h2>
+            <h2 className="section-title">Crystal Core 3D & tecnologias</h2>
             <p className="section-sub">
               Além do design visual, gosto de explorar aquilo que o browser
               consegue fazer hoje: 3D com Three.js, animações suaves e scroll
               com efeito parallax.
             </p>
             <ul className="bullet-list">
-              <li>React + Vite para experiência rápida na navegação.</li>
-              <li>Three.js para criar cenas 3D leves e responsivas.</li>
+              <li>Objeto 3D abstracto tipo “cristal tecnológico”.</li>
+              <li>Aro em wireframe a rodar, com partículas.</li>
               <li>
-                Animações em CSS e JavaScript para um toque de movimento sem
-                exageros.
+                Reacção ao movimento do rato, luzes dinâmicas e profundidade.
               </li>
             </ul>
             <p className="section-sub">
-              O objectivo é sempre o mesmo: destacar o teu projeto, sem perder
-              clareza nem simplicidade para quem visita.
+              Esta demo é apenas um exemplo: a mesma lógica pode ser aplicada a
+              portas, produtos, maquetes de espaços, componentes, etc.
             </p>
           </div>
           <div className="showreel-demo">
             <ThreeHero compact />
             <p className="showreel-caption">
-              Exemplo de cena 3D: cubo metálico com aro em wireframe, reagindo
-              ao movimento do rato e animado em loop.
+              Demo “Crystal Core”: poliedro translúcido com aro metálico em
+              wireframe, partículas e animação contínua.
             </p>
           </div>
         </section>
@@ -201,12 +201,13 @@ export default function App() {
             <span>React</span>
             <span>Vite</span>
             <span>Three.js</span>
+            <span>WebGL</span>
             <span>HTML5</span>
             <span>CSS moderno (flex, grid)</span>
             <span>JavaScript ES6+</span>
             <span>Netlify</span>
             <span>GitHub</span>
-            <span>UI & UX</span>
+            <span>UI &amp; UX</span>
           </div>
         </section>
 
@@ -322,7 +323,7 @@ function TimelineStep({ step, title, text }) {
   );
 }
 
-/* ---------- COMPONENTE 3D ---------- */
+/* ---------- COMPONENTE 3D (Crystal Core) ---------- */
 
 function ThreeHero({ compact }) {
   const mountRef = useRef(null);
@@ -338,7 +339,7 @@ function ThreeHero({ compact }) {
     scene.background = new THREE.Color(BRAND.bg);
 
     const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 100);
-    camera.position.set(0, 0, 6);
+    camera.position.set(0, 0, 7);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
@@ -346,53 +347,71 @@ function ThreeHero({ compact }) {
     mount.appendChild(renderer.domElement);
 
     // Luzes
-    const light = new THREE.DirectionalLight(0xffffff, 1.2);
-    light.position.set(3, 5, 4);
-    scene.add(light);
+    const keyLight = new THREE.SpotLight(0xffffff, 1.4, 20, Math.PI / 6, 0.3);
+    keyLight.position.set(4, 6, 6);
+    scene.add(keyLight);
 
-    const backLight = new THREE.PointLight(0x38bdf8, 0.8, 10);
-    backLight.position.set(-3, -2, -2);
-    scene.add(backLight);
+    const fillLight = new THREE.PointLight(0x60a5fa, 1.0, 12);
+    fillLight.position.set(-4, -2, 3);
+    scene.add(fillLight);
 
-    const ambient = new THREE.AmbientLight(0xffffff, 0.25);
+    const rimLight = new THREE.PointLight(0xa855f7, 0.9, 12);
+    rimLight.position.set(0, 3, -4);
+    scene.add(rimLight);
+
+    const ambient = new THREE.AmbientLight(0xffffff, 0.3);
     scene.add(ambient);
 
-    // Geometria (cubo + toro)
+    // Grupo principal
     const group = new THREE.Group();
-
-    const cubeGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
-    const cubeMat = new THREE.MeshStandardMaterial({
-      color: BRAND.accent,
-      metalness: 0.65,
-      roughness: 0.25,
-    });
-    const cube = new THREE.Mesh(cubeGeo, cubeMat);
-
-    const torusGeo = new THREE.TorusGeometry(2.2, 0.06, 24, 120);
-    const wireMat = new THREE.MeshBasicMaterial({
-      color: BRAND.primary,
-      wireframe: true,
-    });
-    const torus = new THREE.Mesh(torusGeo, wireMat);
-
-    group.add(cube);
-    group.add(torus);
     scene.add(group);
 
-    // Partículas simples
+    // Poliedro (cristal)
+    const crystalGeo = new THREE.IcosahedronGeometry(1.4, 1);
+    const crystalMat = new THREE.MeshPhysicalMaterial({
+      color: 0x38bdf8,
+      metalness: 0.4,
+      roughness: 0.05,
+      transmission: 0.8,
+      thickness: 0.7,
+      transparent: true,
+      opacity: 0.95,
+      clearcoat: 1,
+      clearcoatRoughness: 0.1,
+    });
+    const crystal = new THREE.Mesh(crystalGeo, crystalMat);
+    group.add(crystal);
+
+    // Aro em wireframe
+    const ringGeo = new THREE.TorusGeometry(2.4, 0.07, 24, 160);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0x22c55e,
+      wireframe: true,
+    });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = Math.PI / 3;
+    group.add(ring);
+
+    // Partículas
     const particlesGeo = new THREE.BufferGeometry();
-    const count = 80;
+    const count = 100;
     const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 10;
+    for (let i = 0; i < count; i++) {
+      const r = 4 + Math.random() * 3;
+      const angle = Math.random() * Math.PI * 2;
+      const y = (Math.random() - 0.5) * 3.5;
+      positions[i * 3] = Math.cos(angle) * r;
+      positions[i * 3 + 1] = y;
+      positions[i * 3 + 2] = Math.sin(angle) * r;
     }
     particlesGeo.setAttribute(
       "position",
       new THREE.BufferAttribute(positions, 3)
     );
     const particlesMat = new THREE.PointsMaterial({
-      color: 0x38bdf8,
-      size: 0.04,
+      color: 0x93c5fd,
+      size: 0.045,
+      sizeAttenuation: true,
     });
     const particles = new THREE.Points(particlesGeo, particlesMat);
     scene.add(particles);
@@ -412,11 +431,13 @@ function ThreeHero({ compact }) {
     const animate = () => {
       const t = clock.getElapsedTime();
 
-      cube.rotation.x = t * 0.7 + mouse.y * 1;
-      cube.rotation.y = t * 0.9 + mouse.x * 1.5;
-      torus.rotation.z = t * 0.4;
+      crystal.rotation.x = t * 0.6 + mouse.y * 0.8;
+      crystal.rotation.y = t * 0.9 + mouse.x * 1.2;
 
-      group.position.y = Math.sin(t * 1.2) * 0.15;
+      ring.rotation.y = t * 0.4;
+      ring.rotation.z = t * 0.3;
+
+      group.position.y = Math.sin(t * 1.1) * 0.18;
 
       particles.rotation.y = t * 0.06;
 
@@ -443,10 +464,10 @@ function ThreeHero({ compact }) {
         mount.removeChild(renderer.domElement);
       }
       renderer.dispose();
-      cubeGeo.dispose();
-      cubeMat.dispose();
-      torusGeo.dispose();
-      wireMat.dispose();
+      crystalGeo.dispose();
+      crystalMat.dispose();
+      ringGeo.dispose();
+      ringMat.dispose();
       particlesGeo.dispose();
       particlesMat.dispose();
     };
