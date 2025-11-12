@@ -1,1 +1,365 @@
-/* same CSS as before */
+:root {
+  color-scheme: dark;
+  --bg: #050816;
+  --bg-soft: #020617;
+  --primary: #35bead;
+  --accent: #0b4c9e;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: radial-gradient(circle at top left, #0f172a, #020617 60%);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* LAYOUT */
+
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(18px);
+  background: linear-gradient(to bottom, rgba(3, 7, 18, 0.9), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 2rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logo-dot {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 1rem;
+  background: radial-gradient(circle at 30% 20%, #38bdf8, #0f172a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: white;
+}
+
+.logo-text {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #e5e7eb;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.nav-links a {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.nav-cta {
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #0b1120;
+  font-weight: 600;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem 2rem 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* HERO */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.hero-text h1 {
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  line-height: 1.1;
+  margin: 0.4rem 0 0.8rem;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #38bdf8, #a855f7, #35bead);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.eyebrow {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+.hero-sub {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 32rem;
+  margin-bottom: 1.2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.btn-primary,
+.btn-ghost {
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #020617;
+  font-weight: 600;
+}
+
+.btn-ghost {
+  border-color: rgba(148, 163, 184, 0.5);
+  color: var(--muted);
+  background: rgba(15, 23, 42, 0.7);
+}
+
+.btn-primary.full {
+  width: 100%;
+}
+
+.hero-small {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.hero-3d {
+  min-height: 260px;
+  max-height: 340px;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: radial-gradient(circle at top, #0b1120, #020617);
+  box-shadow: 0 22px 45px rgba(15, 23, 42, 0.7);
+  overflow: hidden;
+}
+
+/* 3D container */
+
+.three-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* SECTION BASE */
+
+.section {
+  margin-top: 4rem;
+}
+
+.section-title {
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.section-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 36rem;
+}
+
+/* CARDS */
+
+.cards {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  border-radius: 1.2rem;
+  padding: 1.2rem;
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+/* PORTFÓLIO */
+
+.portfolio-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.portfolio-card {
+  border-radius: 1.2rem;
+  padding: 0.8rem;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.portfolio-thumb {
+  border-radius: 0.8rem;
+  height: 150px;
+  background: linear-gradient(135deg, #38bdf8, #0b1120);
+  margin-bottom: 0.5rem;
+}
+
+/* CONTACTO */
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.contact-list li span {
+  color: var(--text);
+}
+
+.contact-form {
+  border-radius: 1.4rem;
+  padding: 1.3rem;
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  display: grid;
+  gap: 0.7rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  border-radius: 0.7rem;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.8);
+  color: var(--text);
+  padding: 0.6rem 0.8rem;
+  font: inherit;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #64748b;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+/* FOOTER */
+
+.footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 0.9rem 2rem 1.4rem;
+  font-size: 0.78rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 860px) {
+  .app-header {
+    padding-inline: 1.2rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .main {
+    padding-inline: 1.2rem;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-3d {
+    order: -1;
+    min-height: 220px;
+  }
+
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
